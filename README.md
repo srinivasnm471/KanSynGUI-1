@@ -1,5 +1,4 @@
 # GUI Documentation
-All commands given in this documentation is to be executed from `/App ` Directory
 
 ##  Libraries Installation
 The following Libraries are to be installed before running the Application
@@ -29,12 +28,17 @@ The following Libraries are to be installed before running the Application
 				/rit_logo.png
 			/res
 				/GCredentials.json
+				/db.txt
+				/temp.txt
 			/Application.ui
 			/AppResources.qrc
 			/GTranslate.py
+			/FestAPI.sh
 			/Main.py
+			
 	/LICENSE
 	/README.md
+	/run.sh
 
 ## Files and Folder Description
 
@@ -83,11 +87,17 @@ All the images and other resources will be converted to appropriate format so as
 
 You can now see a file named `AppResources.py` in your directory
 
-## Starting the Application
+## Building and Starting the Application
 
-Start the Application by typing in
+### Building the Application 
 
-	python3 Main.py
+Open App/Main.py and checkout setEnv() function. Change the directory path as per your project. After this run
+
+	chmod 755 ./run.sh
+
+### Start the Application by typing in
+
+	./run.sh
 
 ## License
 MIT License

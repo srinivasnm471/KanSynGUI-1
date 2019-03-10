@@ -32,7 +32,7 @@ class MyApp(QtGui.QMainWindow):
         self.connect(self.ui.kan_input, QtCore.SIGNAL('textChanged()'), self.kan_input_onChange)
         self.connect(self.ui.en_input, QtCore.SIGNAL('textChanged()'), self.en_input_onChange)
             
-    
+        
     #Handler Function for Synthesize Button    
     def synthesize(self):
         wavenum = str(time.strftime("%Y%m%d_%H%M%S"))
@@ -79,7 +79,11 @@ def setEnv():
     os.environ['APP'] = os.getcwd()
 #Main Method        
 if __name__ == "__main__":
+    #Set Permissions and Env Variables
     setEnv()
+    os.system('chmod 755 FestAPI.sh')
+    
+    #Create and Start Application
     app = QtGui.QApplication(sys.argv)
     myapp = MyApp()
     myapp.show()
