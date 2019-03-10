@@ -8,7 +8,7 @@
 # =============================================================================
 
 
-import sys
+import sys,time,os,shutil
 from PyQt4 import QtCore, QtGui
 from Application import Ui_MainWindow
 import GTranslate
@@ -35,10 +35,24 @@ class MyApp(QtGui.QMainWindow):
     
     #Handler Function for Synthesize Button    
     def synthesize(self):
-        f = open('ui.txt','w')
-        f.write('( kan_1001 \" {} \")'.format(self.ui.kan_input.toPlainText()))
-        f.close()
-    
+        wavenum = str(time.strftime("%Y%m%d_%H%M%S"))
+        
+        #Write Kannada Text to temp.txt
+        with open('res/temp.txt', 'w') as temp_file:
+            temp_file.write('( kan_{} \" {} \")'.format(wavenum,self.ui.kan_input.toPlainText()))
+        
+        print(wavenum)
+        os.system('cp res/temp.txt $PRODIR/etc/temp.txt')
+        
+        if self.ui.dsp.isChecked():
+            os.system('./FestAPI.sh 1 {}'.format(wavenum))
+        else:
+            os.system('./FestAPI.sh 0 {}'.format(wavenum))
+        
+        #Store all Synthesized Files in res/db.txt
+        with open('res/db.txt', 'a') as file:
+            file.write('\n( kan_{} \" {} \"){}'.format(wavenum,self.ui.kan_input.toPlainText(),int(self.ui.dsp.isChecked())))
+        
     #Handler Function for Translate Button
     def translate(self):
         en_text = self.ui.en_input.toPlainText()
@@ -57,16 +71,21 @@ class MyApp(QtGui.QMainWindow):
     def en_input_onChange(self):
         pass
 
+def setEnv():
+    os.environ['ESTDIR'] = '/home/shashank/Project/Main/speech_tools'
+    os.environ['FESTVOXDIR'] = '/home/shashank/Project/Main/festvox'
+    os.environ['SPTKDIR'] = '/home/shashank/Project/Main/sptk'
+    os.environ['PRODIR'] = '/home/shashank/Project/Main/cmu_indic_kan_female'
+    os.environ['APP'] = os.getcwd()
 #Main Method        
 if __name__ == "__main__":
+    setEnv()
     app = QtGui.QApplication(sys.argv)
     myapp = MyApp()
     myapp.show()
     
     #Remove __pycache__ Folder once execution is complete
-    import shutil
     shutil.rmtree('./__pycache__',ignore_errors=True)
-    
     sys.exit(app.exec_())
     
     
