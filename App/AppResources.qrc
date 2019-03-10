@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="RIT_logo">
+    <file>img/rit_logo.png</file>
+  </qresource>
+</RCC>
