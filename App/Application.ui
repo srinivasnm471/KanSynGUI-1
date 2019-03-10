@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>981</width>
-    <height>627</height>
+    <height>538</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -42,7 +42,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/RIT_logo/img/rit_logo.png&quot; height=&quot;125&quot; width=&quot;250&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/img/img/rit_logo.png&quot; height=&quot;125&quot; width=&quot;250&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QLabel" name="project_title">
@@ -66,33 +66,49 @@
    <widget class="QCheckBox" name="dsp">
     <property name="geometry">
      <rect>
-      <x>32</x>
-      <y>514</y>
-      <width>168</width>
-      <height>41</height>
+      <x>20</x>
+      <y>270</y>
+      <width>189</width>
+      <height>22</height>
      </rect>
     </property>
     <property name="text">
-     <string>Apply DSP Operation</string>
+     <string>Apply Signal Processing</string>
     </property>
     <property name="checked">
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="reset_button">
+   <widget class="QPushButton" name="reset_button_2">
     <property name="enabled">
      <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>212</x>
-      <y>510</y>
-      <width>141</width>
+      <x>340</x>
+      <y>425</y>
+      <width>81</width>
       <height>41</height>
      </rect>
     </property>
-    <property name="text">
+    <property name="toolTip">
      <string>Clear</string>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="AppResources.qrc">
+      <normaloff>:/img/img/clear_button.png</normaloff>:/img/img/clear_button.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>25</width>
+      <height>25</height>
+     </size>
     </property>
     <property name="default">
      <bool>false</bool>
@@ -107,7 +123,7 @@
       <x>532</x>
       <y>160</y>
       <width>441</width>
-      <height>411</height>
+      <height>321</height>
      </rect>
     </property>
     <property name="mouseTracking">
@@ -120,39 +136,42 @@
    <widget class="QPushButton" name="syn_button">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>510</y>
-      <width>141</width>
+      <x>430</x>
+      <y>265</y>
+      <width>81</width>
       <height>41</height>
      </rect>
     </property>
-    <property name="text">
+    <property name="toolTip">
      <string>Synthesize</string>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="AppResources.qrc">
+      <normaloff>:/img/img/syn_button.png</normaloff>:/img/img/syn_button.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>35</width>
+      <height>35</height>
+     </size>
     </property>
     <property name="default">
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>672</x>
-      <y>170</y>
-      <width>172</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Recent Synthesis Results</string>
-    </property>
-   </widget>
    <widget class="QTextEdit" name="kan_input">
     <property name="geometry">
      <rect>
-      <x>29</x>
-      <y>170</y>
-      <width>481</width>
-      <height>75</height>
+      <x>20</x>
+      <y>190</y>
+      <width>491</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="frameShadow">
@@ -165,7 +184,7 @@
       <x>10</x>
       <y>160</y>
       <width>511</width>
-      <height>411</height>
+      <height>321</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -175,98 +194,11 @@
      <enum>QFrame::Sunken</enum>
     </property>
    </widget>
-   <widget class="QTableWidget" name="recent_table">
-    <property name="geometry">
-     <rect>
-      <x>540</x>
-      <y>190</y>
-      <width>419</width>
-      <height>371</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="contextMenuPolicy">
-     <enum>Qt::DefaultContextMenu</enum>
-    </property>
-    <property name="editTriggers">
-     <set>QAbstractItemView::NoEditTriggers</set>
-    </property>
-    <property name="gridStyle">
-     <enum>Qt::DotLine</enum>
-    </property>
-    <property name="sortingEnabled">
-     <bool>false</bool>
-    </property>
-    <attribute name="horizontalHeaderVisible">
-     <bool>true</bool>
-    </attribute>
-    <attribute name="horizontalHeaderHighlightSections">
-     <bool>false</bool>
-    </attribute>
-    <attribute name="verticalHeaderDefaultSectionSize">
-     <number>40</number>
-    </attribute>
-    <row>
-     <property name="text">
-      <string>1</string>
-     </property>
-    </row>
-    <column>
-     <property name="text">
-      <string>Play Audio</string>
-     </property>
-     <property name="textAlignment">
-      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Kannada Text</string>
-     </property>
-     <property name="textAlignment">
-      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>DSP</string>
-     </property>
-     <property name="textAlignment">
-      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>User Rating</string>
-     </property>
-     <property name="textAlignment">
-      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-     </property>
-    </column>
-    <item row="0" column="0">
-     <property name="text">
-      <string/>
-     </property>
-    </item>
-    <item row="0" column="3">
-     <property name="text">
-      <string/>
-     </property>
-     <property name="flags">
-      <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-     </property>
-    </item>
-   </widget>
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>250</y>
+      <x>20</x>
+      <y>170</y>
       <width>93</width>
       <height>17</height>
      </rect>
@@ -304,10 +236,10 @@
    <widget class="QTextEdit" name="en_input">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>310</y>
-      <width>481</width>
-      <height>75</height>
+      <x>20</x>
+      <y>350</y>
+      <width>491</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="frameShadow">
@@ -317,8 +249,8 @@
    <widget class="QLabel" name="label_8">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>390</y>
+      <x>20</x>
+      <y>330</y>
       <width>93</width>
       <height>17</height>
      </rect>
@@ -330,9 +262,9 @@
    <widget class="QPushButton" name="translate_button">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>390</y>
-      <width>141</width>
+      <x>430</x>
+      <y>425</y>
+      <width>81</width>
       <height>41</height>
      </rect>
     </property>
@@ -341,8 +273,79 @@
       <pointsize>11</pointsize>
      </font>
     </property>
+    <property name="toolTip">
+     <string>Translate (en-kn)</string>
+    </property>
     <property name="text">
-     <string>Translate</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="AppResources.qrc">
+      <normaloff>:/img/img/translate_button.png</normaloff>:/img/img/translate_button.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>25</width>
+      <height>25</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>403</x>
+      <y>413</y>
+      <width>107</width>
+      <height>9</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>6</pointsize>
+      <italic>false</italic>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="text">
+     <string>Powered by Google Translate</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="reset_button_1">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>265</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Clear</string>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="AppResources.qrc">
+      <normaloff>:/img/img/clear_button.png</normaloff>:/img/img/clear_button.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>25</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
     </property>
    </widget>
    <zorder>columnView_2</zorder>
@@ -350,17 +353,17 @@
    <zorder>rit_logo</zorder>
    <zorder>project_title</zorder>
    <zorder>dsp</zorder>
-   <zorder>reset_button</zorder>
+   <zorder>reset_button_2</zorder>
    <zorder>syn_button</zorder>
-   <zorder>label_6</zorder>
    <zorder>kan_input</zorder>
-   <zorder>recent_table</zorder>
    <zorder>label_7</zorder>
    <zorder>line</zorder>
    <zorder>line_2</zorder>
    <zorder>en_input</zorder>
    <zorder>label_8</zorder>
    <zorder>translate_button</zorder>
+   <zorder>label</zorder>
+   <zorder>reset_button_1</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

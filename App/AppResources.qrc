@@ -1,5 +1,8 @@
 <RCC>
-  <qresource prefix="RIT_logo">
+  <qresource prefix="img">
+    <file>img/translate_button.png</file>
+    <file>img/clear_button.png</file>
+    <file>img/syn_button.png</file>
     <file>img/rit_logo.png</file>
   </qresource>
 </RCC>

@@ -19,31 +19,44 @@ class MyApp(QtGui.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         
+        self.button_config()
+        
+            
+    def button_config(self):  
         #Synthesize Button Action
         self.ui.syn_button.clicked.connect(self.synthesize)
+        self.ui.syn_button.setEnabled(False)
         
         #Translate Button Action
         self.ui.translate_button.clicked.connect(self.translate)
+        self.ui.translate_button.setEnabled(False)
         
         #Reset Button Action
-        self.ui.reset_button.clicked.connect(self.reset)
+        self.ui.reset_button_1.clicked.connect(self.reset)
+        self.ui.reset_button_1.setEnabled(False)
+        self.ui.reset_button_2.clicked.connect(self.reset)
+        self.ui.reset_button_2.setEnabled(False)
         
         #Signal Configurations
         self.connect(self.ui.kan_input, QtCore.SIGNAL('textChanged()'), self.kan_input_onChange)
         self.connect(self.ui.en_input, QtCore.SIGNAL('textChanged()'), self.en_input_onChange)
-            
-        
+    
+    
     #Handler Function for Synthesize Button    
     def synthesize(self):
+        self.ui.syn_button
+        
+        kan_txt = self.ui.kan_input.toPlainText()
         wavenum = str(time.strftime("%Y%m%d_%H%M%S"))
         
         #Write Kannada Text to temp.txt
         with open('res/temp.txt', 'w') as temp_file:
-            temp_file.write('( kan_{} \" {} \")'.format(wavenum,self.ui.kan_input.toPlainText()))
+            temp_file.write('( kan_{} \" {} \")'.format(wavenum,kan_txt))
         
         print(wavenum)
         os.system('cp res/temp.txt $PRODIR/etc/temp.txt')
         
+        #DSP option Checked/Unchecked
         if self.ui.dsp.isChecked():
             os.system('./FestAPI.sh 1 {}'.format(wavenum))
         else:
@@ -51,7 +64,7 @@ class MyApp(QtGui.QMainWindow):
         
         #Store all Synthesized Files in res/db.txt
         with open('res/db.txt', 'a') as file:
-            file.write('\n( kan_{} \" {} \"){}'.format(wavenum,self.ui.kan_input.toPlainText(),int(self.ui.dsp.isChecked())))
+            file.write('\n( kan_{} \" {} \"){}'.format(wavenum,kan_txt,int(self.ui.dsp.isChecked())))
         
     #Handler Function for Translate Button
     def translate(self):
@@ -66,10 +79,22 @@ class MyApp(QtGui.QMainWindow):
     
     #This function Runs everytime Kannada Text Changes
     def kan_input_onChange(self):
-        pass
-        
+        kan_txt = self.ui.kan_input.toPlainText()
+        if kan_txt == '':
+            self.ui.syn_button.setEnabled(False)
+            self.ui.reset_button_1.setEnabled(False)
+        else:
+            self.ui.syn_button.setEnabled(True)
+            self.ui.reset_button_1.setEnabled(True)
+    
     def en_input_onChange(self):
-        pass
+        en_txt = self.ui.en_input.toPlainText()
+        if en_txt == '':
+            self.ui.translate_button.setEnabled(False)
+            self.ui.reset_button_2.setEnabled(False)
+        else:
+            self.ui.translate_button.setEnabled(True)
+            self.ui.reset_button_2.setEnabled(True)
 
 def setEnv():
     os.environ['ESTDIR'] = '/home/shashank/Project/Main/speech_tools'
