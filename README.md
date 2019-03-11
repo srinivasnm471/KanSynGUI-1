@@ -1,7 +1,6 @@
 # GUI Documentation
 
 ##  Libraries Installation
-The following Libraries are to be installed before running the Application
 
 #### Linux/Ubuntu
 **Recent Update** : `/run.sh` Handles Installation of Libraries
