@@ -35,10 +35,24 @@ sleep 5
 rm etc/temp.txt
 mv $PRODIR/test/tts/kan_$2.wav ~/Project/WavFiles/NoDSP/
 
-#DSP Operation
+#DSP
+############################################################
+#Noise Removal using SOX
+#https://en.wikipedia.org/wiki/SoX
+############################################################
+
+
+
+############################################################
+#Pitch Shift using soundstretch
+#http://www.surina.net/soundtouch/
+############################################################
+
 b="$1"
 a="1"
 if [ "$b" -eq "$a" ]
 then
 	soundstretch ~/Project/WavFiles/NoDSP/kan_$2.wav ~/Project/WavFiles/DSP/kan_$2.wav -pitch=+4.5
 fi
+
+

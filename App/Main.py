@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # =============================================================================
 # Developer : 
-#       Shashank Sharma
-#       Varun S S
+#       Shashank Sharma(shashankrnr32@gmail.com)
+#       Varun S S(varunsridhar614@gmail.com)
 # 
 #Description : 
 #       Main Application Executable
