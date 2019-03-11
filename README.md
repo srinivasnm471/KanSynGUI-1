@@ -4,46 +4,33 @@
 The following Libraries are to be installed before running the Application
 
 #### Linux/Ubuntu
-1. pyqt4
-		
-		sudo apt-get install python-qt4
-2. pyqt4-dev-tools
-
-		sudo apt-get install pyqt4-dev-tools
-3. qt4-designer
-		
-		sudo apt-get install python-qt4 qt4-designe
-4. Google Translate Python Library
-	
-		pip3 install google-cloud-translate
+**Recent Update** : `/run.sh` Handles Installation of Libraries
 
 #### Microsoft Windows
-	Install Ubuntu on Workstation
+	Boot up Ubuntu
 
 ## Files and Folder Tree
 
 	/GUI
 		/App
 			/img
-				/rit_logo.png
 			/res
 				/GCredentials.json
 				/db.txt
-				/temp.txt
 			/Application.ui
 			/AppResources.qrc
 			/GTranslate.py
 			/FestAPI.sh
 			/Main.py
 			
-	/LICENSE
-	/README.md
-	/run.sh
+		/LICENSE
+		/README.md
+		/run.sh
 
 ## Files and Folder Description
 
 1. `/img` :  [Folder]
-		Contains all the images for the UI
+		Contains all the images and icons for the UI
 
 2. `/res` : [Folder]
 		Contains Resources for Backend
@@ -54,7 +41,7 @@ The following Libraries are to be installed before running the Application
 		qt4-designer Application.ui
 
 4. `AppResources.qrc` : (Resources File - XML)
-		A qt4 resource file which contains XML parsed Resources description. No effect if it is executed.
+		A qt4 resource file which contains XML parsed Resources description.
 
 5. `GTranslate.py` : (Python Module)
 		Python Module that contains Method to translate from English to Kannada
@@ -66,26 +53,12 @@ The following Libraries are to be installed before running the Application
 
 
 ## UI files to Python 
+
+**Recent Update** : The `/run.sh` script handles the conversion now
 		
-The `Application.ui` file has to be converted to Python to write backend in Python. To generate .`py` files from `.ui` files use the command given below. It is recommended to use the same command as given below.
-	
-	pyuic4 Application.ui -o Application.py
-
-You can now see an `Application.py` file in your directory
-Open the file and change the last line
-	
-	import AppResources_rc
-
-to
-
-	import AppResources
-
 ## Resources files to Python
-All the images and other resources will be converted to appropriate format so as to use it in python code. To convert `.qrc` to `.py` use the command given below. It is recommended to use the same command as below.
 
-	pyrcc4 AppResources.qrc -o AppResources.py -py3
-
-You can now see a file named `AppResources.py` in your directory
+**Recent Update** : The `/run.sh` script handles the conversion now
 
 ## Building and Starting the Application
 
