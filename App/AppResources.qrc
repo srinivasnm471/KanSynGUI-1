@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="img">
+    <file>img/stop.png</file>
+    <file>img/play.png</file>
     <file>img/translate_button.png</file>
     <file>img/clear_button.png</file>
     <file>img/syn_button.png</file>

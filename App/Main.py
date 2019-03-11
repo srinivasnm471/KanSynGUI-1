@@ -176,6 +176,7 @@ class MyApp(QtGui.QMainWindow):
             self.ui.translate_button.setEnabled(True)
             self.ui.reset_button_2.setEnabled(True)
 
+
 def setEnv():
     #======================================================================
     #Description:
