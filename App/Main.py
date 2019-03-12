@@ -58,7 +58,10 @@ class MyApp(QtGui.QMainWindow):
         
         #Connect Signal to Update Progress Bar
         self.connect(self.play_thread,QtCore.SIGNAL('bar_percent'), self.update_progress_bar)
-    
+        
+        #Disable Maximize Button
+        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowMinimizeButtonHint)
+   
     def button_config(self):  
         #======================================================================
         #Description:
@@ -75,9 +78,6 @@ class MyApp(QtGui.QMainWindow):
         
         #Play Button Action
         self.ui.play_button.clicked.connect(self.play)
-        
-        #Play Progress_Bar Value = 0
-        self.ui.play_progress.setValue(0)
         
         #Stop Button Action
         self.ui.stop_button.clicked.connect(self.stop)
