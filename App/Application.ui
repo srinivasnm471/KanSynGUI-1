@@ -389,7 +389,7 @@
     <property name="frameShadow">
      <enum>QFrame::Plain</enum>
     </property>
-    <widget class="QProgressBar" name="progressBar">
+    <widget class="QProgressBar" name="play_progress">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -417,7 +417,7 @@
       <bool>false</bool>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="play_button">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -443,7 +443,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="stop_button">
      <property name="geometry">
       <rect>
        <x>60</x>

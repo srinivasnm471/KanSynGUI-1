@@ -18,6 +18,27 @@ from PyQt4 import QtCore, QtGui
 from Application import Ui_MainWindow
 import GTranslate
 
+class PlayThread(QtCore.QThread):
+    #==========================================================================
+    #Thread Implementation for Play Progress Bar
+    #==========================================================================
+    
+    def __init__(self,seconds,parent = None):
+        super(PlayThread,self).__init__(parent)
+        self.seconds = seconds/100
+    
+    def set_seconds(self,seconds):
+        self.seconds = seconds/100
+        
+    def run(self):
+        signal = 0
+        while signal != 100:
+            self.msleep(self.seconds*1000)
+            signal += 1
+            self.emit(QtCore.SIGNAL('bar_percent'),signal)
+        self.emit(QtCore.SIGNAL('bar_percent'),0)
+    
+
 class MyApp(QtGui.QMainWindow):
 
     def __init__(self, *args, **kwargs):
@@ -31,7 +52,13 @@ class MyApp(QtGui.QMainWindow):
         #Configure Status Bar
         self.statusBar = QtGui.QStatusBar()
         self.setStatusBar(self.statusBar)
-            
+          
+        #Create a Runnable Thread
+        self.play_thread = PlayThread(seconds = 0)
+        
+        #Connect Signal to Update Progress Bar
+        self.connect(self.play_thread,QtCore.SIGNAL('bar_percent'), self.update_progress_bar)
+    
     def button_config(self):  
         #======================================================================
         #Description:
@@ -45,6 +72,15 @@ class MyApp(QtGui.QMainWindow):
         #Translate Button Action
         self.ui.translate_button.clicked.connect(self.translate)
         self.ui.translate_button.setEnabled(False)
+        
+        #Play Button Action
+        self.ui.play_button.clicked.connect(self.play)
+        
+        #Play Progress_Bar Value = 0
+        self.ui.play_progress.setValue(0)
+        
+        #Stop Button Action
+        self.ui.stop_button.clicked.connect(self.stop)
         
         #Reset Button Action
         self.ui.reset_button_1.clicked.connect(self.reset)
@@ -175,7 +211,31 @@ class MyApp(QtGui.QMainWindow):
         else:
             self.ui.translate_button.setEnabled(True)
             self.ui.reset_button_2.setEnabled(True)
-
+    
+    def play(self):
+        #======================================================================
+        #Description:
+        #   Handler Function for Play Button
+        #======================================================================
+        
+        #Implementation of Reading Wav Files Yet to Develop...
+        
+        #For Now The play button just increments value of percentage for 10 sec 
+        self.play_thread.set_seconds(10)
+        self.play_thread.start()
+    
+    def stop(self):
+        #======================================================================
+        #Description:
+        #   Handler Function for Play Button
+        #======================================================================
+        
+        if self.play_thread.isRunning():
+            self.play_thread.terminate()
+        self.ui.play_progress.setValue(0)
+    
+    def update_progress_bar(self,percent):
+        self.ui.play_progress.setValue(percent)
 
 def setEnv():
     #======================================================================
