@@ -170,10 +170,24 @@ class MyApp(QtGui.QMainWindow):
         #   Handler Function for Translate Button
         #======================================================================
         
+        #Disable Translate Button
+        self.ui.translate_button.setEnabled(False)
+        self.ui_update()
+        
+        #Acquire Text
         en_text = self.ui.en_input.toPlainText()
+        
+        self.show_status('Translating...')
+        
+        #Call GTranslate Module
         kn_text = GTranslate.en2kn(en_text) 
         self.ui.kan_input.setPlainText(kn_text)
         
+        self.show_status('Done...')
+        
+        #Re-Enable Translate Button
+        self.ui.translate_button.setEnabled(True)
+        self.ui_update()
     
     def reset(self):
         #======================================================================
