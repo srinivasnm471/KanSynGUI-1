@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # =============================================================================
-# Developer : 
+#Developer : 
 #       Shashank Sharma(shashankrnr32@gmail.com)
 #       Varun S S(varunsridhar614@gmail.com)
 # 
@@ -15,8 +15,6 @@
 
 import sys,time,os,shutil
 from PyQt4 import QtCore, QtGui
-from Application import Ui_MainWindow
-import GTranslate
 
 class PlayThread(QtCore.QThread):
     #==========================================================================
@@ -24,20 +22,42 @@ class PlayThread(QtCore.QThread):
     #==========================================================================
     
     def __init__(self,seconds,parent = None):
+        #======================================================================
+        #Constructor : Calls the Parent Constructor
+        #======================================================================
         super(PlayThread,self).__init__(parent)
         self.seconds = seconds/100
     
     def set_seconds(self,seconds):
+        #======================================================================
+        #Setter Function for `seconds` 
+        #Each percentage of the progress bar occurs for `seconds` sec
+        #======================================================================
         self.seconds = seconds/100
         
     def run(self):
+        #======================================================================
+        #Description :
+        #   Overrides run() from QtCore.QThread
+        #   Called when the thread is started
+        #======================================================================
+        
         signal = 0
+        
         while signal != 100:
+            #Thread sleeps for `seconds` sec
             self.msleep(self.seconds*1000)
+            
+            #Increment in Percentage
             signal += 1
+            
+            #Emit SIGNAL : bar_percent that is caught by Implementation Window
             self.emit(QtCore.SIGNAL('bar_percent'),signal)
         self.emit(QtCore.SIGNAL('bar_percent'),0)
     
+
+from Application import Ui_MainWindow
+import GTranslate
 
 class MyApp(QtGui.QMainWindow):
 
@@ -241,7 +261,7 @@ class MyApp(QtGui.QMainWindow):
     def stop(self):
         #======================================================================
         #Description:
-        #   Handler Function for Play Button
+        #   Handler Function for Stop Button
         #======================================================================
         
         if self.play_thread.isRunning():
@@ -249,6 +269,11 @@ class MyApp(QtGui.QMainWindow):
         self.ui.play_progress.setValue(0)
     
     def update_progress_bar(self,percent):
+        #======================================================================
+        #Description:
+        #   Threaded Progress Bar update
+        #   Reentrant function runs when play_thread emits SIGNAL : bar_percent
+        #======================================================================
         self.ui.play_progress.setValue(percent)
 
 def setEnv():
@@ -279,6 +304,3 @@ if __name__ == "__main__":
     #Remove __pycache__ Folder once execution is complete
     shutil.rmtree('./__pycache__',ignore_errors=True)
     sys.exit(app.exec_())
-  
-    
-    

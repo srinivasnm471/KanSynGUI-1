@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # =============================================================================
-# Developer : Shashank Sharma
-# Description : 
+#Developer : Shashank Sharma
+# 
+#Description : 
 #     Google Translate API Implementation
 #     Needs an Internet Connection
 # =============================================================================
