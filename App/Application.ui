@@ -201,6 +201,9 @@
       <height>71</height>
      </rect>
     </property>
+    <property name="locale">
+     <locale language="Kannada" country="India"/>
+    </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
     </property>
@@ -521,8 +524,6 @@
     <property name="title">
      <string>Source Code</string>
     </property>
-    <addaction name="actionPython_Source"/>
-    <addaction name="actionUI_Source"/>
    </widget>
    <addaction name="menuAbout"/>
    <addaction name="menuLicense"/>

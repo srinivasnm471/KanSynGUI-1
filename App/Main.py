@@ -58,6 +58,7 @@ class PlayThread(QtCore.QThread):
 
 from Application import Ui_MainWindow
 import GTranslate
+from Database import Database as db
 
 class MyApp(QtGui.QMainWindow):
 
@@ -68,6 +69,9 @@ class MyApp(QtGui.QMainWindow):
         
         #Configure Buttons
         self.button_config()
+        
+        #Configure Shortcuts
+        self.shortcut_config()
         
         #Configure Status Bar
         self.statusBar = QtGui.QStatusBar()
@@ -81,12 +85,26 @@ class MyApp(QtGui.QMainWindow):
         
         #Disable Maximize Button
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowMinimizeButtonHint)
-   
+        
+        self.database = db('res/db.json')
+        
+        
+    def shortcut_config(self):
+        #======================================================================
+        #Description:
+        #   Configure all Keyboard Shortcuts of the UI
+        #======================================================================
+        
+        #Delete Key clears All Text
+        self.shortcut = QtGui.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Delete),self)
+        self.shortcut.activated.connect(self.reset_all)
+    
+    
     def button_config(self):  
         #======================================================================
         #Description:
         #   Configure all Buttons of the UI
-        #=====================================================================
+        #======================================================================
         
         #Synthesize Button Action
         self.ui.syn_button.pressed.connect(self.synthesize)
@@ -103,9 +121,9 @@ class MyApp(QtGui.QMainWindow):
         self.ui.stop_button.clicked.connect(self.stop)
         
         #Reset Button Action
-        self.ui.reset_button_1.clicked.connect(self.reset)
+        self.ui.reset_button_1.clicked.connect(lambda : self.ui.kan_input.setPlainText(''))
         self.ui.reset_button_1.setEnabled(False)
-        self.ui.reset_button_2.clicked.connect(self.reset)
+        self.ui.reset_button_2.clicked.connect(lambda: self.ui.en_input.setPlainText(''))
         self.ui.reset_button_2.setEnabled(False)
         
         #Signal Configurations
@@ -176,13 +194,13 @@ class MyApp(QtGui.QMainWindow):
         self.show_status('Done... ({}s)'.format('%.3f'%(time.time()-start_time)),2500)                          
         
         #Store all Synthesized Files in res/db.txt
-        with open('res/db.txt', 'a') as file:
-            file.write('\n( kan_{} \" {} \"){}'.format(wavenum,kan_txt,int(self.ui.dsp.isChecked())))
+        self.database.add_entry(kan_txt,wavenum,update = True)
         
         #ReEnable Buttons Again
         self.ui.syn_button.setEnabled(True)
         self.ui_update()
 
+    
     
     def translate(self):
         #======================================================================
@@ -209,15 +227,27 @@ class MyApp(QtGui.QMainWindow):
         self.ui.translate_button.setEnabled(True)
         self.ui_update()
     
-    def reset(self):
+    def reset_1(self):
         #======================================================================
         #Description:
-        #   Handler Function for Reset Button
+        #   Handler Function for Reset_1 Button
         #======================================================================
+        pass
+
+    def reset_2(self):
+        #======================================================================
+        #Description:
+        #   Handler Function for Reset_2 Button
+        #======================================================================
+        pass
         
-        self.ui.en_input.setPlainText('')
+    def reset_all(self):
+        #======================================================================
+        #Description:
+        #   Handler Function for Delete Key shortcut
+        #======================================================================
         self.ui.kan_input.setPlainText('')
-    
+        self.ui.en_input.setPlainText('')
     
     def kan_input_onChange(self):
         #======================================================================
@@ -286,6 +316,7 @@ def setEnv():
     os.environ['FESTVOXDIR'] = '/home/shashank/Project/Main/festvox'
     os.environ['SPTKDIR'] = '/home/shashank/Project/Main/sptk'
     os.environ['PRODIR'] = '/home/shashank/Project/Main/cmu_indic_kan_female'
+    os.environ['WAVDIR'] = 'home/shashank/Project/WavFiles'
     os.environ['APP'] = os.getcwd()
 
 
