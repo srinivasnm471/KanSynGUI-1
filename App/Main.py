@@ -59,6 +59,7 @@ class PlayThread(QtCore.QThread):
 from Application import Ui_MainWindow
 import GTranslate
 from Database import Database as db
+from PyQt4.phonon import Phonon
 
 class MyApp(QtGui.QMainWindow):
 
@@ -76,18 +77,29 @@ class MyApp(QtGui.QMainWindow):
         #Configure Status Bar
         self.statusBar = QtGui.QStatusBar()
         self.setStatusBar(self.statusBar)
-          
+        
+        #Disable Maximize Button
+        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowMinimizeButtonHint)
+        
+        #Connect to Database (JSON)
+        self.database = db('res/db.json')
+
+        #Defines a Audio Output Device
+        self.audio_output = Phonon.AudioOutput(Phonon.MusicCategory,self)
+        
+        #Define an Audio Object
+        self.audio = Phonon.MediaObject(self)
+        self.audio.stateChanged.connect(self.start_progress_bar)
+        self.audio.totalTimeChanged.connect(self.update_thread_time)
+        
         #Create a Runnable Thread
         self.play_thread = PlayThread(seconds = 0)
         
         #Connect Signal to Update Progress Bar
         self.connect(self.play_thread,QtCore.SIGNAL('bar_percent'), self.update_progress_bar)
         
-        #Disable Maximize Button
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowMinimizeButtonHint)
-        
-        self.database = db('res/db.json')
-        
+        #`audio` is the source and `audio_output` is the sink : CREATE PATH
+        Phonon.createPath(self.audio,self.audio_output)
         
     def shortcut_config(self):
         #======================================================================
@@ -200,8 +212,7 @@ class MyApp(QtGui.QMainWindow):
         self.ui.syn_button.setEnabled(True)
         self.ui_update()
 
-    
-    
+
     def translate(self):
         #======================================================================
         #Description:
@@ -282,11 +293,13 @@ class MyApp(QtGui.QMainWindow):
         #   Handler Function for Play Button
         #======================================================================
         
-        #Implementation of Reading Wav Files Yet to Develop...
+        #Implementation of Reading Correct Wav Files to Play Yet to Develop...
         
-        #For Now The play button just increments value of percentage for 10 sec 
-        self.play_thread.set_seconds(10)
-        self.play_thread.start()
+        #Set Audio File to Play [C]
+        self.audio.setCurrentSource(Phonon.MediaSource('/home/shashank/Music/kan_0001.wav'))
+        
+        #Play the Audio
+        self.audio.play()
     
     def stop(self):
         #======================================================================
@@ -294,9 +307,32 @@ class MyApp(QtGui.QMainWindow):
         #   Handler Function for Stop Button
         #======================================================================
         
+        #Stop the Audio
+        self.audio.stop()
+        
         if self.play_thread.isRunning():
             self.play_thread.terminate()
         self.ui.play_progress.setValue(0)
+    
+    def update_thread_time(self,milliseconds):
+        #======================================================================
+        #Update Thread Time every time new file loads
+        #======================================================================
+        
+        #80 ms lost in other execution (DEPENDS ON CPU)
+        error = 80
+        
+        #Update thread time
+        self.play_thread.set_seconds(self.audio.totalTime()/(1000+error))
+    
+    
+    def start_progress_bar(self,new_state,old_state):
+        #======================================================================
+        #Start Progress Bar only after wav file loads
+        #======================================================================
+        if new_state == 2:
+            #Start Progress Bar Thread
+            self.play_thread.start()
     
     def update_progress_bar(self,percent):
         #======================================================================
