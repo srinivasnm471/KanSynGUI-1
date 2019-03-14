@@ -14,7 +14,7 @@
 #
 #Description : 
 #       Main Application Executable
-#           
+#      
 #Modules Used :
 #       Uses AppResources.py and Application.py to Render UI
 #       Uses FestAPI.sh to run Speech Synthesis Project
@@ -38,7 +38,7 @@ class PlayThread(QtCore.QThread):
     
     def set_seconds(self,seconds):
         #======================================================================
-        #Setter Function for `seconds` 
+        #Setter Function for `seconds`
         #Each percentage of the progress bar occurs for `seconds` sec
         #======================================================================
         self.seconds = seconds/100
@@ -120,7 +120,7 @@ class MyApp(QtGui.QMainWindow):
         self.shortcut.activated.connect(self.reset_all)
     
     
-    def button_config(self):  
+    def button_config(self):
         #======================================================================
         #Description:
         #   Configure all Buttons of the UI
@@ -163,7 +163,7 @@ class MyApp(QtGui.QMainWindow):
         self.statusBar.showMessage(msg,t)
         self.ui_update()
     
-    
+    @classmethod
     def ui_update(self):
         #======================================================================
         #Description:

@@ -1,11 +1,11 @@
 # GUI Documentation
 
-##  Libraries Installation
+## Libraries Installation
 
-#### Linux/Ubuntu
+### Linux/Ubuntu
 **Recent Update** : `/run.sh` Handles Installation of Libraries
 
-#### Microsoft Windows
+### Microsoft Windows
 	Boot up Ubuntu
 
 ## Files and Folder Tree
@@ -94,4 +94,3 @@ MIT License
 	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 	SOFTWARE.
-

@@ -13,7 +13,7 @@ import os
 #Path to Private Key
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.getcwd() + '/res/GCredentials.json'
 
-def en2kn(text):    
+def en2kn(text):
     client = translate.Client()
     res = client.translate(text, source_language='en',target_language = 'kn')
     return res['translatedText']
