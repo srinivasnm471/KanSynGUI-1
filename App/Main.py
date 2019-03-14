@@ -1,9 +1,17 @@
 # -*- coding: utf-8 -*-
 # =============================================================================
-#Developer : 
+#Developers : 
 #       Shashank Sharma(shashankrnr32@gmail.com)
+#           - Primary UI Rendering
+#           - Kannada to English Translate
+#           - JSON Based Database Implementation
+#           - Media Player
+#           - Audio Integration
+#       
 #       Varun S S(varunsridhar614@gmail.com)
-# 
+#           - Synthesize Backend
+#           - FestAPI.sh
+#
 #Description : 
 #       Main Application Executable
 #           
