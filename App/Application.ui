@@ -659,21 +659,10 @@
     </property>
     <addaction name="actionDevelopers"/>
     <addaction name="actionMentor"/>
+    <addaction name="actionLicense"/>
     <addaction name="actionAbout_Project"/>
    </widget>
-   <widget class="QMenu" name="menuLicense">
-    <property name="title">
-     <string>License</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuSource_Code">
-    <property name="title">
-     <string>Source Code</string>
-    </property>
-   </widget>
    <addaction name="menuAbout"/>
-   <addaction name="menuLicense"/>
-   <addaction name="menuSource_Code"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionDevelopers">
@@ -689,6 +678,11 @@
   <action name="actionAbout_Project">
    <property name="text">
     <string>About Project</string>
+   </property>
+  </action>
+  <action name="actionLicense">
+   <property name="text">
+    <string>License</string>
    </property>
   </action>
  </widget>

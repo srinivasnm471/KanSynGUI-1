@@ -62,7 +62,7 @@ class PlayThread(QtCore.QThread):
             #Emit SIGNAL : bar_percent that is caught by Implementation Window
             self.emit(QtCore.SIGNAL('bar_percent'),signal)
         self.emit(QtCore.SIGNAL('bar_percent'),0)
-    
+
 
 from Application import Ui_MainWindow
 import GTranslate
@@ -109,6 +109,10 @@ class MyApp(QtGui.QMainWindow):
         #`audio` is the source and `audio_output` is the sink : CREATE PATH
         Phonon.createPath(self.audio,self.audio_output)
         
+        #Create an About Window Instance
+        self.about_page = AboutDialog(parent = self)
+        
+    
     def shortcut_config(self):
         #======================================================================
         #Description:

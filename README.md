@@ -20,8 +20,7 @@
 			/AppResources.qrc
 			/GTranslate.py
 			/FestAPI.sh
-			/Main.py
-			
+			/Main.py	
 		/LICENSE
 		/README.md
 		/run.sh
