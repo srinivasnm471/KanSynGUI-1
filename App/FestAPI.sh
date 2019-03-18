@@ -33,7 +33,7 @@ cd $PRODIR
 ./bin/do_clustergen cg_test tts tts etc/temp.txt
 sleep 5
 rm etc/temp.txt
-mv $PRODIR/test/tts/kan_$2.wav ~/Project/WavFiles/NoDSP/
+mv $PRODIR/test/tts/kan_$2.wav ~/Project/GUI/WavFiles/NoDSP/
 
 #DSP -Digital Signal Processing Operations
 #
@@ -47,9 +47,9 @@ mv $PRODIR/test/tts/kan_$2.wav ~/Project/WavFiles/NoDSP/
 
 
 #==============================================================================
-#
-#
-#
+
+
+
 #==============================================================================
 #Pitch Shift using soundstretch
 #http://www.surina.net/soundtouch/
@@ -58,7 +58,7 @@ b="$1"
 a="1"
 if [ "$b" -eq "$a" ]
 then
-	soundstretch ~/Project/WavFiles/NoDSP/kan_$2.wav ~/Project/WavFiles/DSP/kan_$2.wav -pitch=+4.5
+	soundstretch ~/Project/GUI/WavFiles/NoDSP/kan_$2.wav ~/Project/GUI/WavFiles/DSP/kan_$2.wav -pitch=+4.5
 fi
 
 #==============================================================================

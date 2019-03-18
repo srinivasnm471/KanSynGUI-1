@@ -390,7 +390,7 @@ def setEnv():
     os.environ['FESTVOXDIR'] = '/home/shashank/Project/Main/festvox'
     os.environ['SPTKDIR'] = '/home/shashank/Project/Main/sptk'
     os.environ['PRODIR'] = '/home/shashank/Project/Main/cmu_indic_kan_female'
-    os.environ['WAVDIR'] = 'home/shashank/Project/WavFiles'
+    os.environ['WAVDIR'] = 'home/shashank/Project/GUI/WavFiles'
     os.environ['APP'] = os.getcwd()
 
 
