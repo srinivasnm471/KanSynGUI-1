@@ -28,6 +28,7 @@ from Application import Ui_MainWindow
 import Essentials
 from Essentials import Database as sdb
 
+import _thread as thread
 from PyQt4.phonon import Phonon
 
 class PlayThread(QtCore.QThread):
@@ -216,7 +217,6 @@ class MyApp(QtGui.QMainWindow):
             os.system('./FestAPI.sh 0 {}'.format(wavenum))
         
         
-        
         #ReEnable Buttons Again
         self.ui.syn_button.setEnabled(True)
         self.ui_update()
@@ -230,7 +230,11 @@ class MyApp(QtGui.QMainWindow):
         else:
             self.syn_db.add_entry(kan_txt,wavenum,dsp,-1)
         
+        #Update Media Player
         self.update_media_player()
+        
+        
+    
     
     def revSynthesize(self):
         #======================================================================
@@ -349,7 +353,7 @@ class MyApp(QtGui.QMainWindow):
         #======================================================================
         
         #80 ms lost in other execution (DEPENDS ON CPU)
-        error = 80
+        error = 100
         
         #Update thread time
         self.play_thread.set_seconds(self.audio.totalTime()/(1000+error))
@@ -365,13 +369,15 @@ class MyApp(QtGui.QMainWindow):
     
     def update_progress_bar(self,percent):
         #======================================================================
-        #Description:
         #   Threaded Progress Bar update
         #   Reentrant function runs when play_thread emits SIGNAL : bar_percent
         #======================================================================
         self.ui.play_progress.setValue(percent)
     
     def update_media_player(self):
+        #======================================================================
+        #Updates Media Player Text, Audio
+        #======================================================================
         entry = self.syn_db.get_last_entry()[0]
         
         #Audio File
