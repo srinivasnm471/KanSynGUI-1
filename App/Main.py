@@ -9,7 +9,7 @@
 #           - Audio Integration
 #       
 #       Varun S S(varunsridhar614@gmail.com)
-#           - Synthesize Backend
+#           - Synthesis Backend
 #           - FestAPI.sh
 #
 #Description : 
@@ -215,6 +215,12 @@ class MyApp(QtGui.QMainWindow):
         else:
             os.system('./FestAPI.sh 0 {}'.format(wavenum))
         
+        
+        
+        #ReEnable Buttons Again
+        self.ui.syn_button.setEnabled(True)
+        self.ui_update()
+        
         #All Done...
         self.show_status('Done... ({}s)'.format('%.3f'%(time.time()-start_time)),2500)                          
         
@@ -224,10 +230,7 @@ class MyApp(QtGui.QMainWindow):
         else:
             self.syn_db.add_entry(kan_txt,wavenum,dsp,-1)
         
-        #ReEnable Buttons Again
-        self.ui.syn_button.setEnabled(True)
-        self.ui_update()
-        
+        self.update_media_player()
     
     def revSynthesize(self):
         #======================================================================
