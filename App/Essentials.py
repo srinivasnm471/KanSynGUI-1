@@ -41,6 +41,14 @@ class Database:
         self.conn = sqlite3.connect(database)
         self.cursor = self.conn.cursor()
         
+    def get_last_entry(self):
+        #======================================================================
+        #Retrieves The Last Entry of the Database
+        #======================================================================
+        entry = self.cursor.execute('SELECT * FROM kan WHERE   id = (SELECT MAX(id) FROM kan);')
+        return list(entry)
+            
+        
         
     def add_entry(self,kan_txt, wav_id, dsp = True, reverse_id = -1):
         #======================================================================
@@ -61,7 +69,7 @@ class Database:
         
         #Add Reverse ID to the reverse entry
         if reverse_id != -1:
-            pass
+            self.cursor.execute('UPDATE kan SET reverse_id = ? WHERE wav_id = ?',(wav_id, reverse_id))
         
         #Commit Changes
         self.conn.commit()

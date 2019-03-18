@@ -2,9 +2,9 @@
 # =============================================================================
 #Developers : 
 #       Shashank Sharma(shashankrnr32@gmail.com)
-#           - Primary UI Rendering
+#           - User Interface
 #           - Kannada to English Translate
-#           - JSON Based Database Implementation
+#           - SQLite Based Database Implementation
 #           - Media Player
 #           - Audio Integration
 #       
@@ -29,7 +29,6 @@ import Essentials
 from Essentials import Database as sdb
 
 from PyQt4.phonon import Phonon
-import unicodedata as unicode
 
 class PlayThread(QtCore.QThread):
     #==========================================================================
@@ -111,7 +110,8 @@ class MyApp(QtGui.QMainWindow):
         
         #`audio` is the source and `audio_output` is the sink : CREATE PATH
         Phonon.createPath(self.audio,self.audio_output)
-
+        
+        self.update_media_player()
 
     def shortcut_config(self):
         #======================================================================
@@ -153,7 +153,7 @@ class MyApp(QtGui.QMainWindow):
         #Signal Configurations
         self.connect(self.ui.kan_input, QtCore.SIGNAL('textChanged()'), self.kan_input_onChange)
         self.connect(self.ui.en_input, QtCore.SIGNAL('textChanged()'), self.en_input_onChange)
-    
+        
     
     def show_status(self,msg,t = 1000):
         #======================================================================
@@ -220,13 +220,14 @@ class MyApp(QtGui.QMainWindow):
         
         #Store all Synthesized Files Database
         if reverse:
-            self.database.add_entry(kan_txt,wavenum,dsp)
+            self.syn_db.add_entry(kan_txt,wavenum,dsp)
         else:
-            self.databasse.add_entry(kan_txt,wavenum,dsp,-1)
+            self.syn_db.add_entry(kan_txt,wavenum,dsp,-1)
         
         #ReEnable Buttons Again
         self.ui.syn_button.setEnabled(True)
         self.ui_update()
+        
     
     def revSynthesize(self):
         #======================================================================
@@ -323,13 +324,7 @@ class MyApp(QtGui.QMainWindow):
         #Description:
         #   Handler Function for Play Button
         #======================================================================
-        
-        #Implementation of Reading Correct Wav Files to Play Yet to Develop...
-        
-        #Set Audio File to Play [C]
-        self.audio.setCurrentSource(Phonon.MediaSource('/home/shashank/Music/kan_0001.wav'))
-        
-        #Play the Audio
+
         self.audio.play()
     
     def stop(self):
@@ -372,7 +367,19 @@ class MyApp(QtGui.QMainWindow):
         #   Reentrant function runs when play_thread emits SIGNAL : bar_percent
         #======================================================================
         self.ui.play_progress.setValue(percent)
-
+    
+    def update_media_player(self):
+        entry = self.syn_db.get_last_entry()[0]
+        
+        #Audio File
+        if bool(entry[3]):
+            self.audio.setCurrentSource(Phonon.MediaSource('/{}/DSP/kan_{}.wav'.format(os.environ['WAVDIR'],entry[1])))
+        else:
+            self.audio.setCurrentSource(Phonon.MediaSource('/{}/NoDSP/kan_{}.wav'.format(os.environ['WAVDIR'],entry[1])))
+        
+        #Text
+        self.ui.text_view.setPlainText(entry[2])
+        
 def setEnv():
     #======================================================================
     #Description:

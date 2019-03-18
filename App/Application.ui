@@ -460,22 +460,6 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="text_view">
-    <property name="geometry">
-     <rect>
-      <x>477</x>
-      <y>170</y>
-      <width>425</width>
-      <height>60</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::WinPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
-    </property>
-   </widget>
    <widget class="QPushButton" name="previous_button">
     <property name="geometry">
      <rect>
@@ -826,44 +810,6 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="mail_button">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>250</y>
-      <width>40</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Mail this Audio File</string>
-    </property>
-    <property name="autoFillBackground">
-     <bool>true</bool>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="AppResources.qrc">
-      <normaloff>:/img/img/mail.png</normaloff>:/img/img/mail.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>30</width>
-      <height>30</height>
-     </size>
-    </property>
-    <property name="autoDefault">
-     <bool>false</bool>
-    </property>
-    <property name="default">
-     <bool>false</bool>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
-    </property>
-   </widget>
    <widget class="Line" name="line_3">
     <property name="geometry">
      <rect>
@@ -954,23 +900,33 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QLineEdit" name="mail_text">
+   <widget class="QTextEdit" name="text_view">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>630</x>
-      <y>250</y>
-      <width>270</width>
-      <height>40</height>
+      <x>477</x>
+      <y>170</y>
+      <width>425</width>
+      <height>60</height>
      </rect>
     </property>
-    <property name="inputMask">
-     <string/>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
     </property>
-    <property name="text">
-     <string>shashankrnr32@gmail.com</string>
+    <property name="frameShape">
+     <enum>QFrame::WinPanel</enum>
     </property>
-    <property name="frame">
-     <bool>true</bool>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::NoTextInteraction</set>
     </property>
    </widget>
    <zorder>columnView_2</zorder>
@@ -989,7 +945,6 @@
    <zorder>translate_button</zorder>
    <zorder>label</zorder>
    <zorder>reset_button_1</zorder>
-   <zorder>text_view</zorder>
    <zorder>previous_button</zorder>
    <zorder>next_button</zorder>
    <zorder>play_button</zorder>
@@ -1000,13 +955,12 @@
    <zorder>pitch_button</zorder>
    <zorder>reverse_button</zorder>
    <zorder>spectrum_button</zorder>
-   <zorder>mail_button</zorder>
    <zorder>line_3</zorder>
    <zorder>line_4</zorder>
    <zorder>noise_red_button</zorder>
    <zorder>line_5</zorder>
    <zorder>line_6</zorder>
-   <zorder>mail_text</zorder>
+   <zorder>text_view</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
