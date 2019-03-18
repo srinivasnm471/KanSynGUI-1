@@ -23,10 +23,18 @@
 
 import sys,time,os,shutil
 from PyQt4 import QtCore, QtGui
+from Application import Ui_MainWindow
+
+import Essentials
+from Essentials import Database as sdb
+
+from PyQt4.phonon import Phonon
+import unicodedata as unicode
 
 class PlayThread(QtCore.QThread):
     #==========================================================================
-    #Thread Implementation for Play Progress Bar
+    #Thread Implementation for Play Progress Bar 
+    #Developer : Shashank Sharma
     #==========================================================================
     
     def __init__(self,seconds,parent = None):
@@ -64,11 +72,6 @@ class PlayThread(QtCore.QThread):
         self.emit(QtCore.SIGNAL('bar_percent'),0)
 
 
-from Application import Ui_MainWindow
-import GTranslate
-from Database import Database as db
-from PyQt4.phonon import Phonon
-
 class MyApp(QtGui.QMainWindow):
 
     def __init__(self, *args, **kwargs):
@@ -89,8 +92,8 @@ class MyApp(QtGui.QMainWindow):
         #Disable Maximize Button
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowMinimizeButtonHint)
         
-        #Connect to Database (JSON)
-        self.database = db('res/db.json')
+        #Connect to Synthesis Database
+        self.syn_db = sdb()
 
         #Defines a Audio Output Device
         self.audio_output = Phonon.AudioOutput(Phonon.MusicCategory,self)
@@ -108,11 +111,8 @@ class MyApp(QtGui.QMainWindow):
         
         #`audio` is the source and `audio_output` is the sink : CREATE PATH
         Phonon.createPath(self.audio,self.audio_output)
-        
-        #Create an About Window Instance
-        self.about_page = AboutDialog(parent = self)
-        
-    
+
+
     def shortcut_config(self):
         #======================================================================
         #Description:
@@ -176,7 +176,7 @@ class MyApp(QtGui.QMainWindow):
         QtGui.qApp.processEvents()
 
     
-    def synthesize(self):
+    def synthesize(self,reverse = False):
         #======================================================================
         #Description:
         #   Handler Function for Synthesize Button
@@ -209,7 +209,8 @@ class MyApp(QtGui.QMainWindow):
         self.show_status('Processing...', 0)                                                                    
         
         #DSP option Checked/Unchecked
-        if self.ui.dsp.isChecked():
+        dsp = self.ui.dsp.isChecked()
+        if dsp:
             os.system('./FestAPI.sh 1 {}'.format(wavenum))
         else:
             os.system('./FestAPI.sh 0 {}'.format(wavenum))
@@ -217,13 +218,22 @@ class MyApp(QtGui.QMainWindow):
         #All Done...
         self.show_status('Done... ({}s)'.format('%.3f'%(time.time()-start_time)),2500)                          
         
-        #Store all Synthesized Files in res/db.txt
-        self.database.add_entry(kan_txt,wavenum,update = True)
+        #Store all Synthesized Files Database
+        if reverse:
+            self.database.add_entry(kan_txt,wavenum,dsp)
+        else:
+            self.databasse.add_entry(kan_txt,wavenum,dsp,-1)
         
         #ReEnable Buttons Again
         self.ui.syn_button.setEnabled(True)
         self.ui_update()
-
+    
+    def revSynthesize(self):
+        #======================================================================
+        #Description:
+        #   Synthesize the reverse of the statement (WORDS ARE NOT REVERSED)
+        #======================================================================
+        pass
 
     def translate(self):
         #======================================================================
@@ -241,7 +251,7 @@ class MyApp(QtGui.QMainWindow):
         self.show_status('Translating...')
         
         #Call GTranslate Module
-        kn_text = GTranslate.en2kn(en_text) 
+        kn_text = Essentials.en2kn(en_text) 
         self.ui.kan_input.setPlainText(kn_text)
         
         self.show_status('Done...')
@@ -285,6 +295,15 @@ class MyApp(QtGui.QMainWindow):
         else:
             self.ui.syn_button.setEnabled(True)
             self.ui.reset_button_1.setEnabled(True)
+            
+            #Allow only Kannada Input
+            for x in range(len(kan_txt)):
+                if ord(kan_txt[x]) in range(3200,3315) or kan_txt[x]== ' ':
+                    pass
+                else:
+                    self.ui.kan_input.setPlainText(kan_txt[:x]+kan_txt[x+1:])
+                    
+        
     
     def en_input_onChange(self):
         #======================================================================
