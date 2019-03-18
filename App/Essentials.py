@@ -91,5 +91,4 @@ class Database:
             self.cursor.execute('UPDATE kan SET reverse_id = ? WHERE wav_id = ?',(wav_id, reverse_id))
         
         #Commit Changes
-        self.conn.commit()
-        
+        self.conn.commit()     

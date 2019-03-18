@@ -25,7 +25,7 @@ clear
 echo ==========================================
 echo Kannada Speech Synthesis
 echo ==========================================
-echo "Copyright (C) 2019  Shashank Sharma
+echo "Copyright (C) 2019  Shashank Sharma, Varun S S
 This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome 
 to redistribute it under certain conditions."
